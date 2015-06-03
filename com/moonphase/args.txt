@@ -1,0 +1,4 @@
+--tf= string  use this time, in SS:MM:HH:DD:MM:YY
+--for= integer repeat for `nr' days
+--info void show info
+--help void show help

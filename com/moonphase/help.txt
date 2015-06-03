@@ -1,0 +1,14 @@
+ SYNOPSIS
+  Print phase of the moon
+
+ USAGE
+  moonphase [options]
+
+ DESCRIPTION
+  Print the phase of the moon, default today
+
+ OPTIONS
+  --tf=         Use this time, given in SS:MM:HH:DD:MM:YY
+  --for=        Repeat for 'nr' days
+  --info        Show information
+  --help        Show help

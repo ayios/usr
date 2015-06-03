@@ -1,0 +1,9 @@
+--end= string   where ends the capture, timeformat string in (HH:MM:SS)
+--start= string where starts the capture, timeformat string in (HH:MM:SS)
+--input= filename input file (required)
+--output= filename output file (default input file with the format extension)
+--removesource void remove source after succesfull operation
+--tomp3 void convert to mp3 format instead of libvorbis
+--verbose   void Be verbose
+--info      void Show information
+--help      void Show help

@@ -1,0 +1,7 @@
+--recursive void Make changes recursivelly
+--force     void Force convertion
+--iso       void ISO encoding, default is ISO88597
+--backup    void Backup with the given extension, if "no" make no backup
+--verbose   void Be verbose
+--info      void Show information
+--help      void Show help

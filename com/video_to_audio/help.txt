@@ -1,0 +1,19 @@
+ SYNOPSIS
+  Convert video to audio
+
+ USAGE
+  video_to_audio [options] --input=filename
+
+ DESCRIPTION
+  Convert video to audio (default in libvorbis)
+
+ OPTIONS
+  --end=         Where ends the capture, timeformat string in (HH:MM:SS)
+  --start=       Where starts the capture, timeformat string in (HH:MM:SS)
+  --input=       Input file (required)
+  --output=      Output file (default input file with the format extension)
+  --removesource Remove source after succesfull operation
+  --tomp3        Convert to mp3 format instead of libvorbis
+  -v,--verbose   Be verbose
+  --info         Show information
+  --help         Show help
