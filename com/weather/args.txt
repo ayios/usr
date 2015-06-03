@@ -1,0 +1,5 @@
+--search= string  search for a location
+--uselocation= string use this location
+--days= integer for `nr' days (default 5, can't be more)
+--dont-retrieve void don't retrieve data, instead use the db file
+--verboseoff void don't be verbose
