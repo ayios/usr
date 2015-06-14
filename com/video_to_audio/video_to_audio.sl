@@ -154,7 +154,10 @@ define main ()
   else
     argv = [argv, output];
 
-  variable p = proc->init (0, 0, 0);
+  variable p = proc->init (0, openstdout, 0);
+   
+  if (openstdout)
+    initproc (p);
  
   send_msg_dr ("press q to to stop converting");
 

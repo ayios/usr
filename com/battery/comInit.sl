@@ -4,4 +4,4 @@ loadfrom ("com/" + com, com, com, &on_eval_err);
 
 verboseon ();
 
-eval (com +"->main ()");
+eval (com + "->main ()");

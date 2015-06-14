@@ -13,7 +13,7 @@ define main ()
     dir = "/sys/class/power_supply";
     bat = listdir (dir);
 
-    bat = NULL == bat ? NULL :
+    bat = (NULL == bat || 0 == length (bat)) ? NULL :
     array_map (String_Type, &sprintf, "%s/%s/%s", dir, bat[1],
       ["capacity", "status"]);
 
@@ -33,7 +33,7 @@ define main ()
     dir = "/proc/acpi/battery/";
     bat = listdir (dir)[0];
 
-    bat = NULL == bat ? NULL :
+    bat = (NULL == bat || 0 == length (bat)) ? NULL :
     array_map (String_Type, &sprintf, "%s/%s/%s", dir, bat,
       ["state", "info"]);
 
