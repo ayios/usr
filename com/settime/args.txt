@@ -1,0 +1,4 @@
+--tf= string time format in SS:MM:HH:DD:MM:YY
+--verbose void be verbose
+--info void show info
+--help void show help

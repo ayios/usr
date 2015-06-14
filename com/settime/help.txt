@@ -1,0 +1,14 @@
+ SYNOPSIS
+  Set system time
+
+ USAGE
+  settime [options] --tf=
+
+ DESCRIPTION
+  Set system time and set hardware clock
+
+ OPTIONS
+  --tf=         Time format in SS:MM:HH:DD:MM:YY
+  -v,--verbose  Be verbose
+  --info        Show info
+  --help        Show help
