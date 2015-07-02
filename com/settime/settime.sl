@@ -1,3 +1,9 @@
+if (getuid ())
+  {
+  tostderr ("you should run this script with su rights");
+  exit_me (1);
+  }
+
 loadfrom ("time", "checktmfmt", NULL, &on_eval_err);
 loadfrom ("proc", "procInit", NULL, &on_eval_err);
 
@@ -9,11 +15,11 @@ define gethwclock ()
 {
   variable
     status;
-  
+ 
   variable p = proc->init (0, 1, 0);
 
   status = p.execv ([hwclock, "-r"], NULL);
-  
+ 
   tostdout ("Hardware time: " + strtrim_end (p.stdout.out));
 
   return status;
@@ -22,9 +28,9 @@ define gethwclock ()
 define sethwclock ()
 {
   variable
-    
+ 
     status;
-  
+ 
   variable p = proc->init (0, 0, 0);
 
   status = p.execv ([hwclock, "--systohc"], NULL);
@@ -43,7 +49,7 @@ define main ()
   c.add ("v|verbose", &verboseon);
   c.add ("info", &info);
   c.add ("help", &_usage);
-  
+ 
   () = c.process (__argv, 1);
 
   if (NULL == tim)
@@ -61,7 +67,7 @@ define main ()
     }
 
   tok = array_map (Integer_Type, &atoi, tok);
-  
+ 
   tim = localtime (_time);
 
   set_struct_fields (tim, tok[0], tok[1], tok[2], tok[3], tok[4], tok[5]);
@@ -78,10 +84,10 @@ define main ()
   variable tf = strjoin (array_map (String_Type, &sprintf, "%.2d",
     [tim.tm_mon, tim.tm_mday, tim.tm_hour, tim.tm_min,
     tim.tm_year]));
-  
+ 
   if (NULL == hwclock)
     tostderr ("hwclock hasn't been found in PATH, cannot set hardware clock");
-  
+ 
   if (NULL == date)
     {
     tostderr ("date hasn't been found in PATH, cannot set system time");
@@ -99,12 +105,12 @@ define main ()
   variable p = proc->init (0, 1, 0);
 
   status = p.execv ([date, tf], NULL);
-  
+ 
   tostdout ("Set Time to: " + strtrim_end (p.stdout.out));
 
   if (status.exit_status)
     exit_me (status.exit_status);
-  
+ 
   ifnot (NULL == hwclock)
     {
     status = sethwclock ();
@@ -122,6 +128,6 @@ define main ()
     if (status.exit_status)
       exit_me (status.exit_status);
     }
-  
+ 
   exit_me (0);
 }

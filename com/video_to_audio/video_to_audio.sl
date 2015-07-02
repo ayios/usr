@@ -32,6 +32,16 @@ private define parse_time (tim, sec)
 define main ()
 {
   variable ffmpeg = which ("ffmpeg");
+  
+  if (NULL == ffmpeg)
+    {
+    ffmpeg = which ("avconv");
+    if (NULL == ffmpeg)
+      {
+      tostderr ("ffmpeg and|or avconv hasn't been found in PATH");
+      exit_me (1);
+      }
+    }
 
   variable
     ext,
@@ -60,15 +70,9 @@ define main ()
   c.add ("v|verbose", &verbose;default = "info");
   c.add ("info", &info);
   c.add ("help", &_usage);
-  
+ 
   () = c.process (__argv, 1);
-  
-  if (NULL == ffmpeg)
-    {
-    tostderr ("ffmpeg is not installed");
-    exit_me (1);
-    }
-
+ 
   if (NULL == input)
     {
     tostderr ("--input=filename arg is required");
@@ -155,7 +159,7 @@ define main ()
     argv = [argv, output];
 
   variable p = proc->init (0, openstdout, 0);
-   
+ 
   if (openstdout)
     initproc (p);
  

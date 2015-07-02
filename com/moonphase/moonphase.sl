@@ -46,7 +46,7 @@ define main ()
   c.add ("tf", &tim;type = "string");
   c.add ("for", &repeats;type = "int");
   c.add ("info", &info);
-  c.add ("help", &_usage);    
+  c.add ("help", &_usage);
 
   () = c.process (__argv, 1);
  
@@ -59,18 +59,18 @@ define main ()
    {
    tok = strchop (tim, ':', 0);
    tim = localtime (_time);
-  
+ 
    ifnot (6 == length (tok))
      {
      tostderr ("wrong time format");
      exit_me (1);
      }
-  
+ 
    tok = array_map (Integer_Type, &atoi, tok);
    set_struct_fields (tim, tok[0], tok[1], tok[2], tok[3], tok[4] - 1, tok[5]);
-  
+ 
    retval = checktmfmt (tim);
-   
+ 
    if (NULL == retval)
       {
       err = ();

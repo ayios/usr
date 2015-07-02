@@ -355,7 +355,7 @@ ifnot (NULL == struct_field_exists (json, "data"))
      +tmp.longitude         + "  population "
      +tmp.population);
     }
-  
+ 
   array_map (Void_Type, &tostdout, report);
 
   return 0;

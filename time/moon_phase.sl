@@ -1,6 +1,6 @@
 loadfrom ("time", "julian_day_nr", NULL, &on_eval_err);
 loadfrom ("time", "julian_day_to_cal", NULL, &on_eval_err);
-  
+ 
 define normalize (v)
 {
   v = v - floor (v);
