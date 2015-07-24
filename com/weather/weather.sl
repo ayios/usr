@@ -1,7 +1,6 @@
 loadfrom ("net", "fetch", NULL, &on_eval_err);
 loadfrom ("parse", "json", NULL, &on_eval_err);
 loadfrom ("net", "isconnected", NULL, &on_eval_err);
-loadfrom ("stdio", "readfile", NULL, &on_eval_err);
 loadfrom ("stdio", "writefile", NULL, &on_eval_err);
 loadfrom ("string", "repeat", NULL, &on_eval_err);
 loadfrom ("struct", "struct_field_exists", NULL, &on_eval_err);
