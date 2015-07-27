@@ -1,4 +1,3 @@
-loadfrom ("string", "repeat", NULL, &on_eval_err);
 
 define main ()
 {

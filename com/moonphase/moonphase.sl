@@ -3,7 +3,6 @@ loadfrom ("time", "isleap", NULL, &on_eval_err);
 loadfrom ("time", "week_day", NULL, &on_eval_err);
 loadfrom ("time", "julian_day_to_cal", NULL, &on_eval_err);
 loadfrom ("time", "moon_phase", NULL, &on_eval_err);
-loadfrom ("string", "repeat", NULL, &on_eval_err);
 loadfrom ("time", "checktmfmt", NULL, &on_eval_err);
 loadfrom ("string", "strtoint", NULL, &on_eval_err);
 
