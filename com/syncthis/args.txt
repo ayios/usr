@@ -1,0 +1,4 @@
+--from= mountpoint source directory
+--verboseoff void turn verbose off
+--ign_verbose void turn verbose on, while ignoring on sync
+--ign_rm_verbose void turn  verbose on, while ignoring on remove
