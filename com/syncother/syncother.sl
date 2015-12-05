@@ -1,5 +1,5 @@
-loadfrom ("sync", "sync", 1, &on_eval_err);
-loadfrom ("dir", "are_same_files", NULL, &on_eval_err);
+load.from ("sync", "sync", 1;err_handler = &__err_handler__);
+load.from ("dir", "are_same_files", NULL;err_handler = &__err_handler__);
 
 verboseon ();
 
@@ -23,7 +23,7 @@ define main ()
 
   if (NULL == tree)
     {
-    tostderr ("source tree hasn't been specified");
+    __IO__.tostderr ("source tree hasn't been specified");
     exit_me (1);
     }
 
@@ -39,7 +39,7 @@ define main ()
 
   if (are_same_files (cur, tree))
     {
-    tostderr ("you are trying to sync with me");
+    __IO__.tostderr ("you are trying to sync with me");
     exit_me (1);
     }
 
@@ -48,7 +48,7 @@ define main ()
   exit_code = sync.run (cur, tree);
 
   if (exit_code)
-    tostderr (sprintf ("sync failed, EXIT_CODE: %d", exit_code));
+    __IO__.tostderr (sprintf ("sync failed, EXIT_CODE: %d", exit_code));
  
   exit_me (exit_code);
 }

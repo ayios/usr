@@ -1,5 +1,5 @@
-loadfrom ("time", "julian_day_nr", NULL, &on_eval_err);
-loadfrom ("time", "julian_day_to_cal", NULL, &on_eval_err);
+load.from ("time", "julian_day_nr", NULL;err_handler = &__err_handler__);
+load.from ("time", "julian_day_to_cal", NULL;err_handler = &__err_handler__);
  
 define normalize (v)
 {

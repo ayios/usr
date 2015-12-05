@@ -1,11 +1,11 @@
 if (getuid ())
   {
-  tostderr ("you should run this script with su rights");
+  __IO__.tostderr ("you should run this script with su rights");
   exit_me (1);
   }
 
-loadfrom ("time", "checktmfmt", NULL, &on_eval_err);
-loadfrom ("proc", "procInit", NULL, &on_eval_err);
+load.from ("time", "checktmfmt", NULL;err_handler = &__err_handler__);
+load.from ("proc", "procInit", NULL;err_handler = &__err_handler__);
 
 variable
   date = which ("date"),
@@ -20,7 +20,7 @@ define gethwclock ()
 
   status = p.execv ([hwclock, "-r"], NULL);
  
-  tostdout ("Hardware time: " + strtrim_end (p.stdout.out));
+  __IO__.tostdout ("Hardware time: " + strtrim_end (p.stdout.out));
 
   return status;
 }
@@ -54,7 +54,7 @@ define main ()
 
   if (NULL == tim)
     {
-    tostderr ("--tf= argument is required");
+    __IO__.tostderr ("--tf= argument is required");
     exit_me (1);
     }
 
@@ -62,7 +62,7 @@ define main ()
 
   ifnot (6 == length (tok))
     {
-    tostderr ("time format is wrong, it should be SS:MM:HH:DD:MM:YY");
+    __IO__.tostderr ("time format is wrong, it should be SS:MM:HH:DD:MM:YY");
     exit_me (1);
     }
 
@@ -77,7 +77,7 @@ define main ()
   if (NULL == retval)
     {
     variable err = ();
-    tostderr (err);
+    __IO__.tostderr (err);
     exit_me (1);
     }
 
@@ -86,11 +86,11 @@ define main ()
     tim.tm_year]));
  
   if (NULL == hwclock)
-    tostderr ("hwclock hasn't been found in PATH, cannot set hardware clock");
+    __IO__.tostderr ("hwclock hasn't been found in PATH, cannot set hardware clock");
  
   if (NULL == date)
     {
-    tostderr ("date hasn't been found in PATH, cannot set system time");
+    __IO__.tostderr ("date hasn't been found in PATH, cannot set system time");
     exit_me (1);
     }
 
@@ -106,7 +106,7 @@ define main ()
 
   status = p.execv ([date, tf], NULL);
  
-  tostdout ("Set Time to: " + strtrim_end (p.stdout.out));
+  __IO__.tostdout ("Set Time to: " + strtrim_end (p.stdout.out));
 
   if (status.exit_status)
     exit_me (status.exit_status);

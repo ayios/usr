@@ -1,10 +1,10 @@
-loadfrom ("time", "julian_day_nr", NULL, &on_eval_err);
-loadfrom ("time", "isleap", NULL, &on_eval_err);
-loadfrom ("time", "week_day", NULL, &on_eval_err);
-loadfrom ("time", "julian_day_to_cal", NULL, &on_eval_err);
-loadfrom ("time", "moon_phase", NULL, &on_eval_err);
-loadfrom ("time", "checktmfmt", NULL, &on_eval_err);
-loadfrom ("string", "strtoint", NULL, &on_eval_err);
+load.from ("time", "julian_day_nr", NULL;err_handler = &__err_handler__);
+load.from ("time", "isleap", NULL;err_handler = &__err_handler__);
+load.from ("time", "week_day", NULL;err_handler = &__err_handler__);
+load.from ("time", "julian_day_to_cal", NULL;err_handler = &__err_handler__);
+load.from ("time", "moon_phase", NULL;err_handler = &__err_handler__);
+load.from ("time", "checktmfmt", NULL;err_handler = &__err_handler__);
+load.from ("string", "strtoint", NULL;err_handler = &__err_handler__);
 
 verboseon ();
 
@@ -61,7 +61,7 @@ define main ()
  
    ifnot (6 == length (tok))
      {
-     tostderr ("wrong time format");
+     __IO__.tostderr ("wrong time format");
      exit_me (1);
      }
  
@@ -73,7 +73,7 @@ define main ()
    if (NULL == retval)
       {
       err = ();
-      tostderr (err);
+      __IO__.tostderr (err);
       exit_me (1);
       }
    }
@@ -85,7 +85,7 @@ define main ()
     if (NULL == mp)
       {
       err = ();
-      tostderr (err);
+      __IO__.tostderr (err);
       exit_me (1);
       }
 
@@ -105,11 +105,11 @@ define main ()
     if (NULL == mp)
       {
       err = ();
-      tostderr (err);
+      __IO__.tostderr (err);
       exit_me (1);
       }
     }
  
-  array_map (Void_Type, &tostdout, mp);
+  __IO__.tostdout (mp);
   exit_me (0);
 }

@@ -151,7 +151,7 @@ define main ()
 
   out = [out, strjoin (ar[[i-1:]], "  ")];
  
-  array_map (&tostdout,["DIGRAPHS TABLE", repeat ("_", COLUMNS), out]);
- 
+  __IO__.tostdout (["DIGRAPHS TABLE", repeat ("_", COLUMNS), out]);
+
   exit_me (0);
 }

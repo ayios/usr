@@ -1,18 +1,18 @@
-loadfrom ("net", "fetch", NULL, &on_eval_err);
-loadfrom ("parse", "json", NULL, &on_eval_err);
-loadfrom ("net", "isconnected", NULL, &on_eval_err);
-loadfrom ("stdio", "writefile", NULL, &on_eval_err);
-loadfrom ("struct", "struct_field_exists", NULL, &on_eval_err);
+load.from ("net", "fetch", NULL;err_handler = &__err_handler__);
+load.from ("parse", "json", NULL;err_handler = &__err_handler__);
+load.from ("net", "isconnected", NULL;err_handler = &__err_handler__);
+load.from ("stdio", "writefile", NULL;err_handler = &__err_handler__);
+load.from ("struct", "struct_field_exists", NULL;err_handler = &__err_handler__);
 
-private variable
-  DLINE = repeat ("_", COLUMNS),
-  LOCATION = "default",
-  DBFILE = sprintf ("%s/weather", LCLDATADIR),
-  KEYFILE = sprintf ("%s/weather/key.txt", LCLDATADIR),
-  WEATHER_URL = "http://api.worldweatheronline.com/free/v2/weather.ashx?",
-  SEARCH_URL = "http://api.worldweatheronline.com/free/v2/search.ashx?",
-  DONT_RETRIEVE = NULL,
-  NUM_DAYS = 5;
+variable API_URL = "http://www.worldweatheronline.com/api/";
+variable WEATHER_URL = "http://api.worldweatheronline.com/free/v2/weather.ashx?";
+variable SEARCH_URL = "http://api.worldweatheronline.com/free/v2/search.ashx?";
+variable DBFILE = sprintf ("%s/weather", LCLDATADIR);
+variable KEYFILE = sprintf ("%s/weather/key.txt", LCLDATADIR);
+variable DLINE = repeat ("_", COLUMNS);
+variable LOCATION = "default";
+variable DONT_RETRIEVE = NULL;
+variable NUM_DAYS = 5;
 
 verboseon ();
 
@@ -20,13 +20,13 @@ private define get_key ()
 {
   if (-1 == access (KEYFILE, F_OK))
     {
-    tostderr (KEYFILE + ": doesn't exists");
+    __IO__.tostderr (KEYFILE + ": doesn't exists");
     return NULL;
     }
 
   if (-1 == access (KEYFILE, R_OK))
     {
-    tostderr (KEYFILE +  ": is not readable");
+    __IO__.tostderr (KEYFILE +  ": is not readable");
     return NULL;
     }
 
@@ -34,8 +34,7 @@ private define get_key ()
 
   ifnot (length (key))
     {
-    tostderr ("No key available");
-    tostderr ("You can obtain one from http://www.worldweatheronline.com/api/");
+    __IO__.tostderr ("No key available.\nYou can obtain one from " + API_URL);
     return NULL;
     }
 
@@ -52,13 +51,13 @@ private define get_from_site ()
  
   if (-1 == access (LOCATION, F_OK))
     {
-    tostderr (LOCATION + ": doesn't exists");
+    __IO__.tostderr (LOCATION + ": doesn't exists");
     return NULL;
     }
 
   if (-1 == access (LOCATION, R_OK))
     {
-    tostderr (LOCATION + ": Is not readble");
+    __IO__.tostderr (LOCATION + ": Is not readble");
     return NULL;
     }
 
@@ -66,7 +65,7 @@ private define get_from_site ()
 
   ifnot (length (LOCATION))
     {
-    tostderr ("No Latitude and Longitude values found");
+    __IO__.tostderr ("No Latitude and Longitude values found");
     return NULL;
     }
  
@@ -83,7 +82,7 @@ private define get_from_site ()
     return s.output;
   else
     {
-    tostderr ("Couldn't retrieve data from internet");
+    __IO__.tostderr ("Couldn't retrieve data from internet");
     return NULL;
     }
 }
@@ -246,13 +245,13 @@ define get_from_db ()
 {
   if (-1 == access (DBFILE, F_OK))
     {
-    tostderr ("No Internet connection, neither a db file available");
+    __IO__.tostderr ("No Internet connection, neither a db file available");
     return NULL;
     }
 
   if (-1 == access (DBFILE, R_OK|W_OK))
     {
-    tostderr ("You don't have the required permissions to the db file");
+    __IO__.tostderr ("You don't have the required permissions to the db file");
     return NULL;
     }
  
@@ -260,7 +259,7 @@ define get_from_db ()
 
   ifnot (length (line))
     {
-    tostderr ("No previous entries in the db file");
+    __IO__.tostderr ("No previous entries in the db file");
     return NULL;
     }
 
@@ -272,7 +271,7 @@ define weather_main ()
   variable
     report,
     line;
- 
+
   if (NULL == DONT_RETRIEVE)
     if (isconnected ())
       {
@@ -280,7 +279,7 @@ define weather_main ()
 
       if (NULL == line)
         {
-        tostderr ("Couldn't fetch the required data");
+        __IO__.tostderr ("Couldn't fetch the required data");
         return 1;
         }
 
@@ -295,8 +294,8 @@ define weather_main ()
     exit_me (1);
 
   report = create_report (json_decode (line));
- 
-  array_map (Void_Type, &tostdout, report);
+
+  __IO__.tostdout (report);
 
   return 0;
 }
@@ -308,10 +307,10 @@ private define _search (pat)
 
   if (NULL == key)
     return 1;
- 
+
   ifnot (isconnected ())
     {
-    tostderr ("Computer is not connected to Internet");
+    __IO__.tostderr ("Computer is not connected to Internet");
     return 1;
     }
 
@@ -323,7 +322,7 @@ private define _search (pat)
 
     if (retval)
       {
-      tostderr ("Couldn't retrieve data from internet");
+      __IO__.tostderr ("Couldn't retrieve data from internet");
       return 1;
       }
 
@@ -338,7 +337,7 @@ private define _search (pat)
 ifnot (NULL == struct_field_exists (json, "data"))
   ifnot (NULL == struct_field_exists (json.data, "error"))
     {
-    tostderr (json.data.error[0].msg);
+    __IO__.tostderr (json.data.error[0].msg);
     return 1;
     }
 
@@ -354,7 +353,7 @@ ifnot (NULL == struct_field_exists (json, "data"))
      +tmp.population);
     }
  
-  array_map (Void_Type, &tostdout, report);
+  __IO__.tostdout (report);
 
   return 0;
 }
@@ -373,7 +372,7 @@ define main ()
   c.add ("dont-retrieve", &DONT_RETRIEVE);
   c.add ("verboseoff", &verboseoff);
   c.add ("help", &_usage);
- 
+
   i = c.process (__argv, 1);
 
   DBFILE = sprintf ("%s/%s.txt", DBFILE, LOCATION);
@@ -383,6 +382,6 @@ define main ()
     exit_me (_search (search));
 
   retval = weather_main ();
- 
+
   exit_me (NULL == retval ? 1 : retval);
 }

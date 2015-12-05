@@ -19,7 +19,7 @@ define main ()
 
     if (NULL == bat)
       {
-      tostderr ("I didn't found any battery");
+      __IO__.tostderr ("I didn't found any battery");
       exit_me (1);
       }
 
@@ -39,7 +39,7 @@ define main ()
 
     if (NULL == bat)
       {
-      tostderr ("I didn't found any battery");
+      __IO__.tostderr ("I didn't found any battery");
       exit_me (1);
       }
 
@@ -54,6 +54,6 @@ define main ()
           * integer (capacity)) : "0%";
     }
  
-  tostdout (sprintf ("[Battery is %S, remaining %S]", charging, remain));
+  __IO__.tostdout (sprintf ("[Battery is %S, remaining %S]", charging, remain));
   exit_me (0);
 }
