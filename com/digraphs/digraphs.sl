@@ -151,7 +151,7 @@ define main ()
 
   out = [out, strjoin (ar[[i-1:]], "  ")];
  
-  __IO__.tostdout (["DIGRAPHS TABLE", repeat ("_", COLUMNS), out]);
+  IO.tostdout (["DIGRAPHS TABLE", repeat ("_", COLUMNS), out]);
 
   exit_me (0);
 }

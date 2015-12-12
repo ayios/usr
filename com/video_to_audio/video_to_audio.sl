@@ -12,13 +12,13 @@ private define parse_time (tim, sec)
     ifnot (tim[i] == "00")
       if (1 > atoi (tim[i]))
         {
-        __IO__.tostderr (sprintf ("%s: wrong time format", strjoin (tim, ":")));
+        IO.tostderr (sprintf ("%s: wrong time format", strjoin (tim, ":")));
         return NULL;
         }
       else
         if (atoi (tim[i]) > form[i] || atoi (tim[i]) < 0)
           {
-          __IO__.tostderr (sprintf ("%s: wrong time format", strjoin (tim, ":")));
+          IO.tostderr (sprintf ("%s: wrong time format", strjoin (tim, ":")));
           return NULL;
           }
         else
@@ -31,14 +31,14 @@ private define parse_time (tim, sec)
 
 define main ()
 {
-  variable ffmpeg = which ("ffmpeg");
+  variable ffmpeg = Sys.which ("ffmpeg");
  
   if (NULL == ffmpeg)
     {
-    ffmpeg = which ("avconv");
+    ffmpeg = Sys.which ("avconv");
     if (NULL == ffmpeg)
       {
-      __IO__.tostderr ("ffmpeg and|or avconv hasn't been found in PATH");
+      IO.tostderr ("ffmpeg and|or avconv hasn't been found in PATH");
       exit_me (1);
       }
     }
@@ -75,19 +75,19 @@ define main ()
  
   if (NULL == input)
     {
-    __IO__.tostderr ("--input=filename arg is required");
+    IO.tostderr ("--input=filename arg is required");
     exit_me (1);
     }
 
   if (-1 == access (input, F_OK|R_OK))
     {
-    __IO__.tostderr (errno_string (errno));
+    IO.tostderr (errno_string (errno));
     exit_me (1);
     }
 
   if (0 == any (path_extname (input) == exts))
     {
-    __IO__.tostderr (sprintf ("%s extension isn't supported", path_extname (input)[[1:]]));
+    IO.tostderr (sprintf ("%s extension isn't supported", path_extname (input)[[1:]]));
     exit_me (1);
     }
 
@@ -99,7 +99,7 @@ define main ()
     start = strchop (start, ':', 0);
     ifnot (3 == length (start))
       {
-      __IO__.tostderr ("wrong time format in --start option, setting to NULL");
+      IO.tostderr ("wrong time format in --start option, setting to NULL");
       start = NULL;
       }
     }
@@ -109,7 +109,7 @@ define main ()
     end = strchop (end, ':', 0);
     ifnot (3 == length (end))
       {
-      __IO__.tostderr ("wrong time format in --end option, setting to NULL");
+      IO.tostderr ("wrong time format in --end option, setting to NULL");
       end = NULL;
       }
     }
@@ -130,7 +130,7 @@ define main ()
     if (secb > seca)
       duration = string (secb - seca);
 
-    __IO__.tostderr (string (seca) + " " + string (secb) + " " + string (duration));
+    IO.tostderr (string (seca) + " " + string (secb) + " " + string (duration));
     }
 
   output = sprintf ("%s/%s.%s", path_dirname (output), path_basename_sans_extname (output),
@@ -141,7 +141,7 @@ define main ()
     variable chr = ask ([sprintf ("%s: exists, overwrite? y/n", output)], ['y', 'n']);
     if ('n' == chr)
       {
-      __IO__.tostderr ("aborting ... ");
+      IO.tostderr ("aborting ... ");
       exit_me (1);
       }
     }
@@ -172,7 +172,7 @@ define main ()
   ifnot (status.exit_status)
     if (removesource)
       if (-1 == remove (input))
-        __IO__.tostderr (sprintf ("%s: failed to remove, %s", path_basename (input),
+        IO.tostderr (sprintf ("%s: failed to remove, %s", path_basename (input),
           errno_string (errno)));
 
   exit_me (status.exit_status);

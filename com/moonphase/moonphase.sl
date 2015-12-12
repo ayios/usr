@@ -61,7 +61,7 @@ define main ()
  
    ifnot (6 == length (tok))
      {
-     __IO__.tostderr ("wrong time format");
+     IO.tostderr ("wrong time format");
      exit_me (1);
      }
  
@@ -73,7 +73,7 @@ define main ()
    if (NULL == retval)
       {
       err = ();
-      __IO__.tostderr (err);
+      IO.tostderr (err);
       exit_me (1);
       }
    }
@@ -85,7 +85,7 @@ define main ()
     if (NULL == mp)
       {
       err = ();
-      __IO__.tostderr (err);
+      IO.tostderr (err);
       exit_me (1);
       }
 
@@ -105,11 +105,11 @@ define main ()
     if (NULL == mp)
       {
       err = ();
-      __IO__.tostderr (err);
+      IO.tostderr (err);
       exit_me (1);
       }
     }
  
-  __IO__.tostdout (mp);
+  IO.tostdout (mp);
   exit_me (0);
 }

@@ -7,7 +7,7 @@ define main ()
 {
   variable
     exit_code = 0,
-    cur = SOURCEDIR,
+    cur = Dir.vget ("SOURCEDIR"),
     tree = NULL,
     ignoreverbosity = 0,
     ignoreonremoveverbosity = 0,
@@ -23,23 +23,23 @@ define main ()
 
   if (NULL == tree)
     {
-    __IO__.tostderr ("source tree hasn't been specified");
+    IO.tostderr ("source tree hasn't been specified");
     exit_me (1);
     }
 
   variable sync = sync->sync_new ();
  
   sync.interactive_remove = 1;
-  sync.ignoredir = readfile (LCLDATADIR + "/excludedirs.txt");
+  sync.ignoredir = IO.readfile (Dir.vget ("LCLDATADIR") + "/excludedirs.txt");
   sync.ignoredironremove = sync.ignoredir;
-  sync.ignorefile = readfile (LCLDATADIR + "/excludefiles.txt");
+  sync.ignorefile = IO.readfile (Dir.vget ("LCLDATADIR") + "/excludefiles.txt");
   sync.ignorefileonremove = sync.ignorefile;
   sync.ignoreverbosity = ignoreverbosity;
   sync.ignoreonremoveverbosity = ignoreonremoveverbosity;
 
   if (are_same_files (cur, tree))
     {
-    __IO__.tostderr ("you are trying to sync with me");
+    IO.tostderr ("you are trying to sync with me");
     exit_me (1);
     }
 
@@ -48,7 +48,7 @@ define main ()
   exit_code = sync.run (tree, cur);
 
   if (exit_code)
-    __IO__.tostderr (sprintf ("sync failed, EXIT_CODE: %d", exit_code));
+    IO.tostderr (sprintf ("sync failed, EXIT_CODE: %d", exit_code));
  
   exit_me (exit_code);
 }

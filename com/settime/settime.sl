@@ -1,6 +1,6 @@
 if (getuid ())
   {
-  __IO__.tostderr ("you should run this script with su rights");
+  IO.tostderr ("you should run this script with su rights");
   exit_me (1);
   }
 
@@ -8,8 +8,8 @@ load.from ("time", "checktmfmt", NULL;err_handler = &__err_handler__);
 load.from ("proc", "procInit", NULL;err_handler = &__err_handler__);
 
 variable
-  date = which ("date"),
-  hwclock = which ("hwclock");
+  date = Sys.which ("date"),
+  hwclock = Sys.which ("hwclock");
 
 define gethwclock ()
 {
@@ -20,7 +20,7 @@ define gethwclock ()
 
   status = p.execv ([hwclock, "-r"], NULL);
  
-  __IO__.tostdout ("Hardware time: " + strtrim_end (p.stdout.out));
+  IO.tostdout ("Hardware time: " + strtrim_end (p.stdout.out));
 
   return status;
 }
@@ -54,7 +54,7 @@ define main ()
 
   if (NULL == tim)
     {
-    __IO__.tostderr ("--tf= argument is required");
+    IO.tostderr ("--tf= argument is required");
     exit_me (1);
     }
 
@@ -62,7 +62,7 @@ define main ()
 
   ifnot (6 == length (tok))
     {
-    __IO__.tostderr ("time format is wrong, it should be SS:MM:HH:DD:MM:YY");
+    IO.tostderr ("time format is wrong, it should be SS:MM:HH:DD:MM:YY");
     exit_me (1);
     }
 
@@ -77,7 +77,7 @@ define main ()
   if (NULL == retval)
     {
     variable err = ();
-    __IO__.tostderr (err);
+    IO.tostderr (err);
     exit_me (1);
     }
 
@@ -86,11 +86,11 @@ define main ()
     tim.tm_year]));
  
   if (NULL == hwclock)
-    __IO__.tostderr ("hwclock hasn't been found in PATH, cannot set hardware clock");
+    IO.tostderr ("hwclock hasn't been found in PATH, cannot set hardware clock");
  
   if (NULL == date)
     {
-    __IO__.tostderr ("date hasn't been found in PATH, cannot set system time");
+    IO.tostderr ("date hasn't been found in PATH, cannot set system time");
     exit_me (1);
     }
 
@@ -106,7 +106,7 @@ define main ()
 
   status = p.execv ([date, tf], NULL);
  
-  __IO__.tostdout ("Set Time to: " + strtrim_end (p.stdout.out));
+  IO.tostdout ("Set Time to: " + strtrim_end (p.stdout.out));
 
   if (status.exit_status)
     exit_me (status.exit_status);

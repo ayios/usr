@@ -19,12 +19,12 @@ define main ()
 
     if (NULL == bat)
       {
-      __IO__.tostderr ("I didn't found any battery");
+      IO.tostderr ("I didn't found any battery");
       exit_me (1);
       }
 
-    charging = readfile (bat[1])[0];
-    capacity = readfile (bat[0])[0];
+    charging = IO.readfile (bat[1])[0];
+    capacity = IO.readfile (bat[0])[0];
     remain = (Integer_Type == _slang_guess_type (capacity)) ?
       sprintf ("%.0f%%", integer (capacity)) : "0%";
     }
@@ -39,13 +39,13 @@ define main ()
 
     if (NULL == bat)
       {
-      __IO__.tostderr ("I didn't found any battery");
+      IO.tostderr ("I didn't found any battery");
       exit_me (1);
       }
 
     variable
-      line_state = readfile (bat[0]; end = 5)[[2:]],
-      line_info = readfile (bat[1]; end = 3)[-1];
+      line_state = IO.readfile (bat[0]; end = 5)[[2:]],
+      line_info = IO.readfile (bat[1]; end = 3)[-1];
 
     charging = strtok (line_state[0])[-1];
     capacity = strtok (line_state[2])[-2];
@@ -54,6 +54,6 @@ define main ()
           * integer (capacity)) : "0%";
     }
  
-  __IO__.tostdout (sprintf ("[Battery is %S, remaining %S]", charging, remain));
+  IO.tostdout (sprintf ("[Battery is %S, remaining %S]", charging, remain));
   exit_me (0);
 }

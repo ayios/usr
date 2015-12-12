@@ -178,7 +178,7 @@ variable
     64686, 64750, 64814, 64878, 64942, 65006, 65070, 65134, 65198, 65262, 65326, 65390,
     65454, 65518],
   EXTENSIONS = [".txt", ".srt"],
-  FILEEXEC = which ("file"),
+  FILEEXEC = Sys.which ("file"),
   BACKUPEXT = "iso",
   FORCE = NULL,
   ISO = "ISO88597",
@@ -220,7 +220,7 @@ private define convert (file)
     line,
     ic = iconv_open ("UTF8", ISO);
 
-  ar = readfile (file);
+  ar = IO.readfile (file);
 
   _for i (0, length (ar) - 1)
     {
@@ -249,7 +249,7 @@ private define convert (file)
     if (-1 == copyfile (file, sprintf ("%s.%s", file, BACKUPEXT)))
       {
       EXIT_CODE = 1;
-      __IO__.tostderr (sprintf ("%s: failed to backup to `%s.%s', ERRNO: %s", file, file,
+      IO.tostderr (sprintf ("%s: failed to backup to `%s.%s', ERRNO: %s", file, file,
         BACKUPEXT));
       return;
       }
@@ -259,12 +259,12 @@ private define convert (file)
     writefile (ar, file);
   catch AnyError:
     {
-    __IO__.tostderr (err.message);
+    IO.tostderr (err.message);
     EXIT_CODE = 1;
     return;
     }
 
-  __IO__.tostdout (sprintf ("%s: converted", file));
+  IO.tostdout (sprintf ("%s: converted", file));
 }
 
 define main ()
@@ -289,13 +289,13 @@ define main ()
 
   if (FILEEXEC == NULL == FORCE)
     {
-    __IO__.tostderr ("file executable cannot be found");
+    IO.tostderr ("file executable cannot be found");
     exit_me (1);
     }
 
   if (i == __argc)
     {
-    __IO__.tostderr ("Argument (filename) is required");
+    IO.tostderr ("Argument (filename) is required");
     exit_me (1);
     }
 
@@ -306,13 +306,13 @@ define main ()
     {
     if (-1 == access (files[i], F_OK))
       {
-      __IO__.tostderr (sprintf ("%s: doesn't exists in filesystem", files[i]));
+      IO.tostderr (sprintf ("%s: doesn't exists in filesystem", files[i]));
       continue;
       }
  
     if (-1 == access (files[i], W_OK))
       {
-      __IO__.tostderr (sprintf ("%s: Is not writable", files[i]));
+      IO.tostderr (sprintf ("%s: Is not writable", files[i]));
       continue;
       }
  
@@ -320,7 +320,7 @@ define main ()
       {
       if (NULL == recursive)
         {
-        __IO__.tostderr (sprintf ("%s: is a directory and recursive is NULL", files[i]));
+        IO.tostderr (sprintf ("%s: is a directory and recursive is NULL", files[i]));
         continue;
         }
 
@@ -332,7 +332,7 @@ define main ()
     ifnot (isiso (files[i]))
       if (NULL == FORCE)
         {
-        __IO__.tostderr (sprintf ("%s: Is not an ISO text file", files[i]));
+        IO.tostderr (sprintf ("%s: Is not an ISO text file", files[i]));
         EXIT_CODE = 1;
         continue;
         }
@@ -344,11 +344,11 @@ define main ()
     array_map (Void_Type, &convert, list_to_array (list));
   else
     {
-    __IO__.tostderr ("No file to convert");
+    IO.tostderr ("No file to convert");
     EXIT_CODE = 1;
     }
  
-  __IO__.tostdout (sprintf ("EXIT CODE: %d", EXIT_CODE));
+  IO.tostdout (sprintf ("EXIT CODE: %d", EXIT_CODE));
 
   exit_me (EXIT_CODE);
 }
