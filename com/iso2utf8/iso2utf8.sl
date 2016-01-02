@@ -1,7 +1,7 @@
 load.module ("std", "iconv", NULL;err_handler = &__err_handler__);
 
 load.from ("file", "copyfile", NULL;err_handler = &__err_handler__);
-load.from ("dir", "fswalk", NULL;err_handler = &__err_handler__);
+load.from ("__/FS", "walk", NULL;err_handler = &__err_handler__);
 load.from ("stdio", "writefile", NULL;err_handler = &__err_handler__);
 
 variable
@@ -271,7 +271,6 @@ define main ()
 {
   variable
     i,
-    fs,
     files,
     list = {},
     recursive = NULL,
@@ -309,13 +308,13 @@ define main ()
       IO.tostderr (sprintf ("%s: doesn't exists in filesystem", files[i]));
       continue;
       }
- 
+
     if (-1 == access (files[i], W_OK))
       {
       IO.tostderr (sprintf ("%s: Is not writable", files[i]));
       continue;
       }
- 
+
     if (_isdirectory (files[i]))
       {
       if (NULL == recursive)
@@ -324,11 +323,10 @@ define main ()
         continue;
         }
 
-      fs = fswalk_new (&dir_callback, &file_callback; fargs = {list});
-      fs.walk (files[i]);
+      FS.walk (files[i], &dir_callback, &file_callback; fargs = {list});
       continue;
       }
- 
+
     ifnot (isiso (files[i]))
       if (NULL == FORCE)
         {
@@ -339,7 +337,7 @@ define main ()
 
     list_append (list, files[i]);
     }
- 
+
   if (length (list))
     array_map (Void_Type, &convert, list_to_array (list));
   else
@@ -347,7 +345,7 @@ define main ()
     IO.tostderr ("No file to convert");
     EXIT_CODE = 1;
     }
- 
+
   IO.tostdout (sprintf ("EXIT CODE: %d", EXIT_CODE));
 
   exit_me (EXIT_CODE);
