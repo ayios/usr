@@ -1,6 +1,6 @@
 load.from ("sync", "sync", 1;err_handler = &__err_handler__);
 
-__.sadd ("File", "are_same", "are_same__", NULL);
+File->Fun ("are_same__", NULL);
 
 verboseon ();
 
@@ -8,7 +8,7 @@ define main ()
 {
   variable
     exit_code = 0,
-    cur = Dir.vget ("SOURCEDIR"),
+    cur = Dir->Vget ("SOURCEDIR"),
     tree = NULL,
     ignoreverbosity = 0,
     ignoreonremoveverbosity = 0,
@@ -31,9 +31,9 @@ define main ()
   variable sync = sync->sync_new ();
 
   sync.interactive_remove = 1;
-  sync.ignoredir = IO.readfile (Dir.vget ("LCLDATADIR") + "/excludedirs.txt");
+  sync.ignoredir = IO.readfile (Dir->Vget ("LCLDATADIR") + "/excludedirs.txt");
   sync.ignoredironremove = sync.ignoredir;
-  sync.ignorefile = IO.readfile (Dir.vget ("LCLDATADIR") + "/excludefiles.txt");
+  sync.ignorefile = IO.readfile (Dir->Vget ("LCLDATADIR") + "/excludefiles.txt");
   sync.ignorefileonremove = sync.ignorefile;
   sync.ignoreverbosity = ignoreverbosity;
   sync.ignoreonremoveverbosity = ignoreonremoveverbosity;

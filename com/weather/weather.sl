@@ -7,8 +7,8 @@ load.from ("struct", "struct_field_exists", NULL;err_handler = &__err_handler__)
 variable API_URL = "http://www.worldweatheronline.com/api/";
 variable WEATHER_URL = "http://api.worldweatheronline.com/free/v2/weather.ashx?";
 variable SEARCH_URL = "http://api.worldweatheronline.com/free/v2/search.ashx?";
-variable DBFILE = sprintf ("%s/weather", Dir.vget ("LCLDATADIR"));
-variable KEYFILE = sprintf ("%s/weather/key.txt", Dir.vget ("LCLDATADIR"));
+variable DBFILE = sprintf ("%s/weather", Dir->Vget ("LCLDATADIR"));
+variable KEYFILE = sprintf ("%s/weather/key.txt", Dir->Vget ("LCLDATADIR"));
 variable DLINE = repeat ("_", COLUMNS);
 variable LOCATION = "default";
 variable DONT_RETRIEVE = NULL;
@@ -376,7 +376,7 @@ define main ()
   i = c.process (__argv, 1);
 
   DBFILE = sprintf ("%s/%s.txt", DBFILE, LOCATION);
-  LOCATION = sprintf ("%s/weather/loc_%s.txt", Dir.vget ("LCLDATADIR"), LOCATION);
+  LOCATION = sprintf ("%s/weather/loc_%s.txt", Dir->Vget ("LCLDATADIR"), LOCATION);
 
   ifnot (NULL == search)
     exit_me (_search (search));
