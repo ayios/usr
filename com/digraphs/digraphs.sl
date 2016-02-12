@@ -136,11 +136,11 @@ define main ()
 
   ar = array_map (String_Type, &sprintf, "%6d: %c",
       [[33:126], [161:255], ar], [[33:126], [161:255], ar]);
- 
+
   len = length (ar) - items;
 
   i = 0;
- 
+
   variable out = String_Type[0];
 
   while (i < len)
@@ -150,7 +150,7 @@ define main ()
     }
 
   out = [out, strjoin (ar[[i-1:]], "  ")];
- 
+
   IO.tostdout (["DIGRAPHS TABLE", repeat ("_", COLUMNS), out]);
 
   exit_me (0);

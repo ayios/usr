@@ -1,4 +1,7 @@
 --from= mountpoint source directory
+--copyinteractive= int confirm when copy (default no)
 --verboseoff void turn verbose off
---ign_verbose void turn verbose on, while ignoring on sync
---ign_rm_verbose void turn  verbose on, while ignoring on remove
+--ign_verbose= int turn verbose on, while ignoring on sync
+--ign_rm_verbose= int turn  verbose on, while ignoring on remove
+--help void show help
+--info void show information

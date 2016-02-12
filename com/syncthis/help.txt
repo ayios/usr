@@ -1,3 +1,16 @@
+SYNOPSIS
+  sync distribution to another destination
 
---from=      source directory
---verboseoff turn verbose off
+ USAGE
+  sync --to=dest [options]
+
+ DESCRIPTION
+  sync distribution from another destination
+
+ OPTIONS
+
+  --to=              destination tree (required)
+	 --copyinteractive  confirm when copy (default yes)
+  --verboseoff       turn verbose off  (default yes)
+  --ign_verbose      turn verbose on, while ignoring on sync
+  --ign_rm_verbose   turn verbose on, while ignoring on remove

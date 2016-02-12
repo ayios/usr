@@ -11,14 +11,17 @@ define main ()
     cur = Dir->Vget ("SOURCEDIR"),
     tree = NULL,
     ignoreverbosity = 0,
+    interactive_copy = 0,
     ignoreonremoveverbosity = 0,
     c = cmdopt_new (&_usage);
 
   c.add ("to", &tree;type = "string");
   c.add ("verboseoff", &verboseoff);
-  c.add ("ign_verbose", &ignoreverbosity);
-  c.add ("ign_rm_verbose", &ignoreonremoveverbosity);
+  c.add ("copyinteractive", &interactive_copy;type = "int");
+  c.add ("ign_verbose", &ignoreverbosity;type = "int");
+  c.add ("ign_rm_verbose", &ignoreonremoveverbosity;type = "int");
   c.add ("help", &_usage);
+  c.add ("info", &info);
 
   () = c.process (__argv, 1);
 
@@ -37,6 +40,7 @@ define main ()
   sync.ignorefileonremove = sync.ignorefile;
   sync.ignoreverbosity = ignoreverbosity;
   sync.ignoreonremoveverbosity = ignoreonremoveverbosity;
+  sync.interactive_copy = interactive_copy;
 
   if (File.are_same (cur, tree))
     {
